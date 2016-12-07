@@ -65,10 +65,10 @@
     path: '/etc/ferm/ferm.d/{{ item.weight | default("50") }}_{{ item.filename | default(item.type + "_" + item.dport[0] | default("rules")) }}.conf'
     state: 'absent'
   with_flattened:
-    - ferm_rules
-    - ferm_group_rules
-    - ferm_host_rules
-    - ferm_dependent_rules
+    - "{{ ferm_rules }}"
+    - "{{ ferm_group_rules }}"
+    - "{{ ferm_host_rules }}"
+    - "{{ ferm_dependent_rules }}"
   when: ((item.type is defined and item.type) and
          ((item.dport is defined and item.dport) or (item.rules is defined and item.rules)) and
          (item.delete is defined and item.delete))
@@ -81,10 +81,10 @@
     group: 'adm'
     mode: '0644'
   with_flattened:
-    - ferm_rules
-    - ferm_group_rules
-    - ferm_host_rules
-    - ferm_dependent_rules
+    - "{{ ferm_rules }}"
+    - "{{ ferm_group_rules }}"
+    - "{{ ferm_host_rules }}"
+    - "{{ ferm_dependent_rules }}"
   when: ((item.type is defined and item.type) and
          ((item.dport is defined and item.dport) or (item.rules is defined and item.rules)) and
          (item.delete is undefined or (item.delete is defined and not item.delete)))
@@ -94,10 +94,10 @@
     path: '/etc/ferm/filter-input.d/{{ item.weight | default("50") }}_{{ item.filename | default(item.type + "_" + item.dport[0] | default("rules")) }}.conf'
     state: 'absent'
   with_flattened:
-    - ferm_input_list
-    - ferm_input_group_list
-    - ferm_input_host_list
-    - ferm_input_dependent_list
+    - "{{ ferm_input_list }}"
+    - "{{ ferm_input_group_list }}"
+    - "{{ ferm_input_host_list }}"
+    - "{{ ferm_input_dependent_list }}"
   when: ((item.type is defined and item.type) and
          ((item.dport is defined and item.dport) or (item.rules is defined and item.rules)) and
          (item.delete is defined and item.delete))
@@ -110,10 +110,10 @@
     group: 'adm'
     mode: '0644'
   with_flattened:
-    - ferm_input_list
-    - ferm_input_group_list
-    - ferm_input_host_list
-    - ferm_input_dependent_list
+    - "{{ ferm_input_list }}"
+    - "{{ ferm_input_group_list }}"
+    - "{{ ferm_input_host_list }}"
+    - "{{ ferm_input_dependent_list }}"
   when: ((item.type is defined and item.type) and
          ((item.dport is defined and item.dport) or (item.rules is defined and item.rules)) and
          (item.delete is undefined or (item.delete is defined and not item.delete)))
